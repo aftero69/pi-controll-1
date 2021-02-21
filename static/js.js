@@ -1,4 +1,4 @@
-var socket = io.connect("http://localhost/");
+var socket = io.connect();
 const btn = document.querySelector("#switch");
 const title = document.querySelector("#title_state");
 var title_border_style = (color) =>
@@ -10,13 +10,11 @@ btn.addEventListener("change", () => {
     state = "on"
   } else {
     state = "off"
-    
   }
   socket.emit('state', state)
 });
 
 socket.on('connect', function(){
-
   console.log("sending.....")
   socket.send("Connection established")
   socket.on("message", (msg)=>{
