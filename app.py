@@ -1,20 +1,48 @@
-from flask import Flask, render_template, request, make_response, jsonify
-from flask_socketio import SocketIO, send , emit
-
+from flask import Flask, render_template
+from flask_socketio import SocketIO, emit
+import json
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "SYED uzair AHmed"
 app.config["DEBUG"] = True
-# data = [{"message": "data received"}, ]
-socketio = SocketIO(app,cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # resberry-pi-variable
 port_1 = "off"
+pin_triggers = [
+    {"switch0": "off"},
+    {"switch1": "off"},
+    {"switch2": "off"},
+    {"switch3": "off"},
+]
+
 
 @app.route("/home/")
-@app.route('/')
+@app.route("/")
 def home():
     return render_template("index.html")
+
+
+@socketio.on("message")
+def start_start_check(message):
+    print(message)
+    emit("init_pin_state", pin_triggers)
+
+
+@socketio.on("change_state")
+def set_ports(data):
+    for index , item in enumerate(pin_triggers):
+        if str(item.keys()) == str(data.keys()):
+            for data_key, data_value in data.items():
+                pin_triggers[index][data_key] = data_value
+            break
+    socketio.emit("broadcast",data)
+    print(pin_triggers)
+
+
+if __name__ == "__main__":
+    socketio.run(app, host="0.0.0.0", port="80")
+
 
 # Getting the data fro the fitch api using post method
 # @app.route("/pi_trigger", methods=["POST"])
@@ -31,18 +59,3 @@ def home():
 #     res = make_response(jsonify({"message": "data received"}, {
 #                         "device_state": f"{value}"}), 200)
 #     return res
-
-@socketio.on('message')
-def start_start_check(message):
-    print(message)
-    send(port_1)
-
-@socketio.on('state')
-def set_ports(message):
-    global port_1
-    port_1 = message
-    socketio.emit("broadcast", port_1)
-    
-
-if __name__ == "__main__":
-    socketio.run(app,host="0.0.0.0",port="80")
