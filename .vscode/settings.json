@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "d:\\Python\\py-web-app-flask\\pi-controll\\venv\\Scripts\\python.exe"
+    "python.pythonPath": "d:\\Python\\py-web-app-flask\\pi-controll\\venv\\Scripts\\python.exe",
+    "python.pipenvPath": "d:\\Python\\py-web-app-flask\\pi-controll\\venv\\Scripts\\Activate.ps1"
 }
