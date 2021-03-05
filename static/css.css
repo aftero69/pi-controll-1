@@ -5,6 +5,7 @@ body {
   color: aqua;
 }
 
+/* style for box shadow */
 .box {
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
@@ -22,14 +23,14 @@ body {
 }
 
 .title {
-  padding: 15px;
+  padding: 10px;
   box-shadow: 10px 0px red, 0 0 0 1px rgb(0 0 0 / 20%);
   border-radius: 10px 0px;
   font-size: 1.5rem;
 }
 
 .time {
-  padding: 15px;
+  padding: 10px;
   margin-left: 20px;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 20%);
   border-radius: 0px 10px;
@@ -38,4 +39,16 @@ body {
 
 .tog {
   margin: 20px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

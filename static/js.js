@@ -1,6 +1,5 @@
 var socket = io.connect();
 var theParentElement = document.getElementById("event-listener");
-var startingState;
 
 theParentElement.addEventListener("click", function (e) {
   /*
@@ -16,11 +15,11 @@ theParentElement.addEventListener("click", function (e) {
       let obj = {};
       titleColorChange(switchId, true);
       if (toggle_switch.checked) {
-        obj[switchId] = "on"
-        socket.emit("change_state", obj)
+        obj[switchId] = "on";
+        socket.emit("change_state", obj);
       } else {
-        obj[switchId] = "off"
-        socket.emit("change_state", obj)
+        obj[switchId] = "off";
+        socket.emit("change_state", obj);
       }
 
     }
@@ -35,7 +34,7 @@ socket.on("broadcast", function (data) {
   */
   const id_name = Object.keys(data);
   const pin_state = Object.values(data);
-  titleColorChange(id_name[0], false, true, pin_state[0])
+  titleColorChange(id_name[0], false, true, pin_state[0]);
 });
 
 
@@ -48,11 +47,10 @@ socket.on("connect", function () {
   console.log("sending.....");
   socket.send("Connection established");
   socket.on("init_pin_state", (pinData) => {
-    startingState = pinData
     pinData.forEach(function (data) {
       const id_name = Object.keys(data);
       const pin_state = Object.values(data);
-      titleColorChange(id_name[0], false, true, pin_state[0])
+      titleColorChange(id_name[0], false, true, pin_state[0]);
     });
   });
 });
