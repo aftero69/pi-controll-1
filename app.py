@@ -13,7 +13,7 @@ pin_triggers = [
     {"switch2": "off"},
     {"switch3": "off"},
 ]
-
+# checking
 
 @app.route("/home/")
 @app.route("/")
